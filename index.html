@@ -113,6 +113,7 @@
             <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
         </svg>
         <div class="success-text">Вы участвуете!</div>
+        <button id="closeBtn" style="display: none; margin-top: 20px; background: #444; color: white;">Закрыть приложение</button>
     </div>
 
     <script>
@@ -127,7 +128,16 @@
                 tg.HapticFeedback.notificationOccurred('success');
             }
 
+            // Показываем кнопку "Закрыть" через 1.5 секунды
+            setTimeout(() => {
+                document.getElementById('closeBtn').style.display = 'block';
+            }, 1500);
+        };
+
+        // Закрытие происходит ТОЛЬКО по нажатию на кнопку
+        document.getElementById('closeBtn').onclick = () => {
             tg.sendData(JSON.stringify({ action: "captcha_passed" }));
+            tg.close();
         };
     </script>
 </body>
