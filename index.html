@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: #121212; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .box { background: #2a2a2a; padding: 30px; border-radius: 20px; border: 2px solid #f1c40f; box-shadow: 0 0 20px rgba(241, 196, 15, 0.3); }
+        h2 { margin-top: 0; color: #f1c40f; }
+        button { background: #f1c40f; color: #121212; border: none; padding: 15px 30px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%; }
+        button:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🤖 Проверка</h2>
+        <p>Нажми на кнопку ниже, чтобы подтвердить, что ты не робот, и участвовать в розыгрыше.</p>
+        <button id="verifyBtn">✅ Я не робот</button>
+    </div>
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        document.getElementById('verifyBtn').onclick = () => {
+            tg.sendData(JSON.stringify({ action: "captcha_passed" }));
+            tg.close();
+        };
+    </script>
+</body>
+</html>
