@@ -120,24 +120,14 @@
         tg.expand();
 
         document.getElementById('verifyBtn').onclick = () => {
-            // 1. Скрываем капчу
             document.getElementById('captcha-box').classList.add('hidden');
-            
-            // 2. Показываем анимацию успеха
             document.getElementById('success-screen').style.display = 'flex';
-
-            // 3. Вибрация (если поддерживается)
+            
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.notificationOccurred('success');
             }
 
-            // 4. Ждем 2.5 секунды, чтобы галочка успела нарисоваться
-            setTimeout(() => {
-                // 5. Отправляем данные боту
-                tg.sendData(JSON.stringify({ action: "captcha_passed" }));
-                // 6. Закрываем окно
-                tg.close();
-            }, 2500);
+            tg.sendData(JSON.stringify({ action: "captcha_passed" }));
         };
     </script>
 </body>
