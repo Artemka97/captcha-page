@@ -19,7 +19,6 @@
             overflow: hidden;
         }
         
-        /* Контейнер для капчи */
         #captcha-box {
             background: #2a2a2a;
             padding: 30px;
@@ -46,7 +45,6 @@
         }
         button:active { transform: scale(0.95); }
 
-        /* Экран успеха (скрыт изначально) */
         #success-screen {
             display: none;
             flex-direction: column;
@@ -93,7 +91,6 @@
             animation: fadeIn 0.5s ease-in 1.2s forwards;
         }
 
-        /* Анимации */
         @keyframes stroke { 100% { stroke-dashoffset: 0; } }
         @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
         @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 30px #4bb71b; } }
@@ -104,14 +101,12 @@
     </style>
 </head>
 <body>
-    <!-- Экран с капчей -->
     <div id="captcha-box">
         <h2>🤖 Проверка</h2>
         <p>Нажми кнопку, чтобы подтвердить, что ты не робот.</p>
         <button id="verifyBtn">✅ Я не робот</button>
     </div>
 
-    <!-- Экран успеха с анимацией -->
     <div id="success-screen">
         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
             <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
@@ -125,21 +120,15 @@
         tg.expand();
 
         document.getElementById('verifyBtn').onclick = () => {
-            // 1. Скрываем капчу
             document.getElementById('captcha-box').classList.add('hidden');
-            
-            // 2. Показываем анимацию успеха
             document.getElementById('success-screen').style.display = 'flex';
             
-            // 3. Отправляем данные боту
             tg.sendData(JSON.stringify({ action: "captcha_passed" }));
 
-            // 4. Вибрация (если поддерживается)
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.notificationOccurred('success');
             }
 
-            // 5. Через 2.5 секунды закрываем окно и возвращаем в канал
             setTimeout(() => {
                 tg.close();
             }, 2500);
